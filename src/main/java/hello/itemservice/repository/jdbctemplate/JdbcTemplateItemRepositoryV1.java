@@ -74,10 +74,12 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
         String itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
         String sql = "select id, item_name, price, quantity from item";
+
         //동적 쿼리
         if (StringUtils.hasText(itemName) || maxPrice != null) {
             sql += " where";
         }
+
         boolean andFlag = false;
         List<Object> param = new ArrayList<>();
         if (StringUtils.hasText(itemName)) {
@@ -85,6 +87,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
             param.add(itemName);
             andFlag = true;
         }
+
         if (maxPrice != null) {
             if (andFlag) {
                 sql += " and";
@@ -92,10 +95,11 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
             sql += " price <= ?";
             param.add(maxPrice);
         }
+
         log.info("sql={}", sql);
         return template.query(sql, itemRowMapper(), param.toArray());
     }
-    
+
     private RowMapper<Item> itemRowMapper() {
         return (rs, rowNum) -> {
             Item item = new Item();
