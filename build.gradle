@@ -19,6 +19,11 @@ repositories {
 }
 
 dependencies {
+	//JdbcTemplate 추가
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	//H2 데이터베이스 추가
+	runtimeOnly 'com.h2database:h2'
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
